@@ -59,7 +59,7 @@ import drawCode
  """
 #########################################################################################################
 
-def main():
+""" def main():
   movie = "Files/SpiderVerse.mkv"
   count = 0
 
@@ -71,7 +71,7 @@ def main():
   interval = genFrames.calcInterval(movie)
   
   while genFrames.genFrame(vidcap, interval, count):
-      if count == 0: drawCode.drawCanvas(1280, title)
+      if count == 0: drawCode.drawCanvas(title)
       drawCode.drawFrame(avgColour.avgRowCol('Frames/frame%d.jpg' % count), count, title)
       print count
       count += 1
@@ -83,6 +83,37 @@ def main():
   filelist = [ f for f in os.listdir('Frames')]
   for f in filelist:
     os.remove(os.path.join('Frames', f))
+ """
+#########################################################################################################
+
+def main():
+  movie = "Files/SpiderVerse.mkv"
+  count = 0
+
+  title = movie.split("/")[1].split(".")[0]
+  print title
+
+  #genFrames
+  print "Calculating Interval..."
+  vidcap = cv2.VideoCapture(movie)
+  interval = genFrames.calcInterval(vidcap)
+
+  print "Drawing Canvas..."
+  drawCode.drawCanvas(title, movie)
+  
+  while count <= 1280:
+      frame = genFrames.genFrame(vidcap, interval, count)
+      drawCode.drawFrame(avgColour.avgRowCol(frame), count, title)
+      #print count
+      count += 1
+      #if count == 30: break
+      
+  
+  print "Number of Frames: ", count
+
+  # filelist = [ f for f in os.listdir('Frames')]
+  # for f in filelist:
+  #   os.remove(os.path.join('Frames', f))
 
 #########################################################################################################
 

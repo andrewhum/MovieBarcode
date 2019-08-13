@@ -1,3 +1,4 @@
+import cv2
 from PIL import Image, ImageDraw
 from random import *
 
@@ -33,10 +34,11 @@ def drawFrame(colour, count, title):
 
 #########################################################################################################
 
-def drawCanvas(numFrames, title):
+""" def drawCanvas(title):
     frame = Image.open("Frames/frame0.jpg", 'r')
     img = Image.new('RGB', (frame.size[0], frame.size[1]), (255, 255, 255))
     img.save("Files/%sBarCode111.jpg" % title, "PNG")
+    
 
 def drawFrame(colour, count, title):
     img = Image.open("Files/%sBarcode111.jpg" % title)
@@ -46,4 +48,24 @@ def drawFrame(colour, count, title):
         pixels[count, i] = colour[i]
 
     img.save("Files/%sBarCode111.jpg" % title)
+ """
 
+#########################################################################################################
+
+def drawCanvas(title, movie):
+    vidcap = cv2.VideoCapture(movie)
+    frame = vidcap.read()[1]
+    img = Image.new('RGB', (len(frame) / 6 * 21, len(frame)), (255, 255, 255))
+    img.save("Files/%sCode.jpg" % title, "PNG")
+    
+
+def drawFrame(colour, count, title):
+    print "drawFrame"
+    img = Image.open("Files/%sCode.jpg" % title)
+    pixels = img.load()
+
+    for i in range(img.size[1]):
+        pixels[count, i] = colour[i]
+
+    img.save("Files/%sCode.jpg" % title)
+    print "..."

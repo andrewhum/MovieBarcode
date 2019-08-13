@@ -66,7 +66,7 @@ def allColours(numFrames):
 
 #########################################################################################################
 
-def avgRowCol(frame):
+""" def avgRowCol(frame):
         img = Image.open(frame, 'r')
         pixel = img.load()
         pixr, pixg, pixb = [], [], []
@@ -83,3 +83,22 @@ def avgRowCol(frame):
                 rowCol.append(rgbRow)           
 
         return rowCol 
+ """
+#########################################################################################################
+
+def avgRowCol(frame):
+        print "colour"
+        rowCol = []
+        for i in range(len(frame)):
+                avgr, avgg, avgb = 0, 0, 0
+                for j in range(len(frame[0])):
+                        avgr += frame[i][j][2]
+                        avgg += frame[i][j][1]
+                        avgb += frame[i][j][0]
+                rgbRow = (avgr / len(frame[0]), avgg / len(frame[0]), avgb / len(frame[0]))
+                rowCol.append(rgbRow)           
+
+        print "..."
+        print rowCol
+        return rowCol 
+

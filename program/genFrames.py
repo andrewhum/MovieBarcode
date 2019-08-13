@@ -2,6 +2,8 @@ import cv2
 import sys
 import os
 
+from PIL import Image
+
 #########################################################################################################
 
 """ def genFrames(movie):
@@ -49,7 +51,7 @@ import os
 
 #########################################################################################################
 
-def calcInterval(movie):
+""" def calcInterval(movie):
   vidcap = cv2.VideoCapture(movie)
   fps = vidcap.get(cv2.CAP_PROP_FPS)
   frame_count = vidcap.get(cv2.CAP_PROP_FRAME_COUNT)
@@ -61,7 +63,7 @@ def calcInterval(movie):
 
   vidcap.release()
 
-  interval = duration / 1.28 # Interval to generate 1280 Frames
+  interval = duration / 1.9 # Interval to generate 1280 Frames
 
   return interval
 
@@ -73,7 +75,41 @@ def genFrame(vidcap, interval, count):
   cv2.imwrite('Frames/frame%d.jpg' % count, image)     # save frame as JPEG file
   success,image = vidcap.read()
 
-  return success
+  return success """
+
+  #########################################################################################################
+def calcInterval(Video):
+    duration = Video.get(cv2.CAP_PROP_FRAME_COUNT) / Video.get(cv2.CAP_PROP_FPS)
+    ratio = len(Video.read()[1]) * 21 / 6000
+    interval = duration / ratio # Interval to generate frames for ~ 21:6 resolution
+  
+    return interval
+
+  
+def genFrame(Video, interval, count):
+  print "genFrame"
+  Video.set(cv2.CAP_PROP_POS_MSEC,(count * interval))
+  eov, image = Video.read()
+  print "..."
+  return image
+
+""" def main():
+  vidcap = cv2.VideoCapture("Files/SpiderVerse.mkv")
+  fps = vidcap.get(cv2.CAP_PROP_FPS)
+  frame_count = vidcap.get(cv2.CAP_PROP_FRAME_COUNT)
+  duration = frame_count / fps
+  
+  vidcap.set(cv2.CAP_PROP_POS_MSEC,(21540))
+  # image = vidcap.read()[1]
+
+  # print image[0][0][2] # R value
+  # print image[0][0][1] # G value
+  # print image[0][0][0] # B value
+
+  print genFrame(vidcap)
+
+main()
+ """
 
 # def main():
 #   movie = "Files/SpiderVerse.mkv"
