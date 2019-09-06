@@ -57,6 +57,7 @@ def drawCanvas(title, movie):
     frame = vidcap.read()[1]
     img = Image.new('RGB', (len(frame) / 6 * 21, len(frame)), (255, 255, 255))
     img.save("Files/%sCode.jpg" % title, "PNG")
+    return (len(frame) / 6 * 21)
     
 
 def drawFrame(colour, count, title):

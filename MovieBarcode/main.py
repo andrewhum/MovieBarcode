@@ -99,13 +99,17 @@ def main():
   interval = genFrames.calcInterval(vidcap)
 
   print "Drawing Canvas..."
-  drawCode.drawCanvas(title, movie)
+  numFrames = drawCode.drawCanvas(title, movie)
+
+  frames = []
   
-  while count <= 1280:
-      frame = genFrames.genFrame(vidcap, interval, count)
-      drawCode.drawFrame(avgColour.avgRowCol(frame), count, title)
+  print numFrames
+  while count <= numFrames:
+      frames.append(genFrames.genFrame(vidcap, interval, count))
+      #drawCode.drawFrame(avgColour.avgRowCol(frame), count, title)
       #print count
       count += 1
+      print count
       #if count == 30: break
       
   

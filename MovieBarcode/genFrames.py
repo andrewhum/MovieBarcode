@@ -77,7 +77,10 @@ def genFrame(vidcap, interval, count):
 
   return success """
 
-  #########################################################################################################
+
+#########################################################################################################
+
+
 def calcInterval(Video):
     duration = Video.get(cv2.CAP_PROP_FRAME_COUNT) / Video.get(cv2.CAP_PROP_FPS)
     ratio = len(Video.read()[1]) * 21 / 6000
@@ -87,10 +90,10 @@ def calcInterval(Video):
 
   
 def genFrame(Video, interval, count):
-  print "genFrame"
+  # print "genFrame"
   Video.set(cv2.CAP_PROP_POS_MSEC,(count * interval))
   eov, image = Video.read()
-  print "..."
+  # print "..."
   return image
 
 """ def main():
