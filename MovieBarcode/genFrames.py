@@ -44,10 +44,10 @@ from PIL import Image
   print "Successfully generated ", count, "frames. "
   return count 
 
-#def main():
-#  genFrames('Files/SpiderVerse.mkv')
+def main():
+  genFrames('Files/SpiderVerse.mkv')
 
-#main() """
+main() """
 
 #########################################################################################################
 
@@ -97,9 +97,11 @@ def genFrame(Video, interval, count):
   return image
 
 """ def main():
-  vidcap = cv2.VideoCapture("Files/SpiderVerse.mkv")
+  vidcap = cv2.VideoCapture("Files/testVid.mp4")
   fps = vidcap.get(cv2.CAP_PROP_FPS)
+  print fps
   frame_count = vidcap.get(cv2.CAP_PROP_FRAME_COUNT)
+  print frame_count
   duration = frame_count / fps
   
   vidcap.set(cv2.CAP_PROP_POS_MSEC,(21540))
@@ -111,16 +113,16 @@ def genFrame(Video, interval, count):
 
   print genFrame(vidcap)
 
+main() """
+
+
+def main():
+  movie = "Files/testVid.mp4"
+  vidcap = cv2.VideoCapture(movie)
+  interval = calcInterval(vidcap)
+  print genFrame(vidcap, interval, 0)
+
 main()
- """
-
-# def main():
-#   movie = "Files/SpiderVerse.mkv"
-#   vidcap = cv2.VideoCapture(movie)
-#   interval = calcInterval(movie)
-#   genFrame(vidcap, interval, 0)
-
-# main()
 
 #########################################################################################################
 
