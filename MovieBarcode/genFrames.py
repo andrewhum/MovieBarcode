@@ -116,13 +116,13 @@ def genFrame(Video, interval, count):
 main() """
 
 
-def main():
+""" def main():
   movie = "Files/testVid.mp4"
   vidcap = cv2.VideoCapture(movie)
   interval = calcInterval(vidcap)
   print genFrame(vidcap, interval, 0)
 
-main()
+main() """
 
 #########################################################################################################
 

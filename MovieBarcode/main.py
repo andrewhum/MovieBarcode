@@ -109,9 +109,15 @@ def main():
       #drawCode.drawFrame(avgColour.avgRowCol(frame), count, title)
       #print count
       count += 1
-      print count
       #if count == 30: break
-      
+    
+  p = multiprocessing.Pool(6) 
+  colours = p.map(avgRowCol, frames)
+
+  p.close() 
+  p.join() 
+
+  
   
   print "Number of Frames: ", count
 
