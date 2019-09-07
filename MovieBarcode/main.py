@@ -4,6 +4,7 @@ import sys
 from PIL import Image, ImageDraw
 from random import *
 import time
+import multiprocessing
 
 import genFrames
 import avgColour
@@ -87,7 +88,7 @@ import drawCode
 #########################################################################################################
 
 def main():
-  movie = "Files/SpiderVerse.mkv"
+  movie = "Files/testVid.mp4"
   count = 0
 
   title = movie.split("/")[1].split(".")[0]
@@ -103,27 +104,24 @@ def main():
 
   frames = []
   
-  print numFrames
-  while count <= numFrames:
-      frames.append(genFrames.genFrame(vidcap, interval, count))
+  print "Generating Frames..."
+  for i in range (numFrames):
+      frames.append(genFrames.genFrame(vidcap, interval, i))
       #drawCode.drawFrame(avgColour.avgRowCol(frame), count, title)
-      #print count
-      count += 1
       #if count == 30: break
     
-  p = multiprocessing.Pool(6) 
-  colours = p.map(avgRowCol, frames)
+  p = multiprocessing.Pool(multiprocessing.cpu_count()) 
+  colours = p.map(avgColour.avgRowCol, frames)
 
   p.close() 
-  p.join() 
+  p.join()
+
+  for i in colours:
+    drawCode.drawFrame(avgColour.avgRowCol(frame), count, title)
 
   
   
   print "Number of Frames: ", count
-
-  # filelist = [ f for f in os.listdir('Frames')]
-  # for f in filelist:
-  #   os.remove(os.path.join('Frames', f))
 
 #########################################################################################################
 
