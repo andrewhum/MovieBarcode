@@ -88,7 +88,7 @@ import drawCode
 #########################################################################################################
 
 def main():
-  movie = "Files/SpiderVerse.mkv"
+  movie = "Files/testVid.mp4"
   count = 0
 
   title = movie.split("/")[1].split(".")[0]
@@ -107,7 +107,7 @@ def main():
   print numFrames
   
   print "Generating Frames..."
-  for i in range (10):
+  for i in range (numFrames):
       frames.append(genFrames.genFrame(vidcap, interval, i))
       #drawCode.drawFrame(avgColour.avgRowCol(frame), count, title)
       #if count == 30: break
@@ -115,7 +115,8 @@ def main():
   print len(frames)
 
   print "Calculating Colours"
-  p = multiprocessing.Pool(multiprocessing.cpu_count()) 
+  #p = multiprocessing.Pool(multiprocessing.cpu_count()) 
+  p = multiprocessing.Pool(4)
   colours = p.map(avgColour.colArray, frames)
 
   p.close() 
