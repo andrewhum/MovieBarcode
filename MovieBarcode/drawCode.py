@@ -56,14 +56,14 @@ def drawCanvas(title, movie):
     vidcap = cv2.VideoCapture(movie)
     frame = vidcap.read()[1]
     img = Image.new('RGB', (len(frame) * 21 / 12, len(frame) / 2), (255, 255, 255))
-    img.save("Files/%sCode.jpg" % title, "PNG")
+    img.save("Files/%sBarCode.jpg" % title, "PNG")
     return (len(frame) / 12 * 21)
     
 
-def drawFrame(colour, frame, title):
-    img = Image.open("Files/%sCode.jpg" % title)
+def drawFrame(colour, count, title):
+    img = Image.open("Files/%sBarCode.jpg" % title)
     pixels = img.load()
-    for i in range(img.size[1] / 2):
-        pixels[frame, i] = colour[i]
+    for i in range(img.size[1]):
+        pixels[count, i] = colour[i]
 
-    img.save("Files/%sCode.jpg" % title)
+    img.save("Files/%sBarCode.jpg" % title)

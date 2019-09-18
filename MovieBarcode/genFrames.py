@@ -47,7 +47,7 @@ from PIL import Image
 def main():
   genFrames('Files/SpiderVerse.mkv')
 
-main() """
+main()  """
 
 #########################################################################################################
 
