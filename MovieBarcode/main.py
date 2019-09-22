@@ -2,7 +2,6 @@ import os.path
 import cv2
 import sys
 from PIL import Image, ImageDraw
-from random import *
 import time
 import multiprocessing
 
@@ -21,40 +20,40 @@ def main():
 
   width = genFrames.getWidth(movie)
   height = genFrames.getHeight(movie)
-  interval = genFrames.calcInterval(movie)
+  interval = genFrames.getInterval(movie)
 
-  print ("Movie: ", title)
-  print ("Frame Height: ", height)
-  print ("Frame Width: ", width)
-  #genFrames
-
-  print ("Generating Frames...")
+  print ("================================")
+  time.sleep(0.5)
+  print ("Movie: %s" % title)
+  time.sleep(0.5)
+  print ("Frame Width: %d" % width)
+  time.sleep(0.5)
+  print ("Frame Height: %d" % height)
+  time.sleep(0.5)
+  print ("================================")
+  
+  sys.stdout.write("Generating Frames... ")
   frames = []
-  frames = genFrames.genFrames(movie) #runtime ~4 minutes
+  frames = genFrames.genFrames(movie, width) #runtime ~4 minutes
+  sys.stdout.write("Done. \n")
 
-  print ("Drawing Canvas...")
-  numFrames = drawCode.drawCanvas(title, movie)
+  sys.stdout.write("Creating Canvas... ")
+  drawCode.drawCanvas(movie, width, height)
+  sys.stdout.write("Done. \n")
 
-  print "Calculating Colours..."
-  #p = multiprocessing.Pool(multiprocessing.cpu_count()) 
+  sys.stdout.write("Calculating Colours... ")
   p = multiprocessing.Pool(6)
   colours = p.map(avgColour.colArray, frames)
-
   p.close() 
   p.join()
-
   print len(colours)
+  sys.stdout.write("Done. \n")
 
+  sys.stdout.write("Drawing Barcode... ")
+  drawCode.drawFrame(colours)
+  sys.stdout.write("Done. \n")
 
-  # img = Image.open("Files/%sCode.jpg" % title)
-  # print "Drawing Canvas..."
-  # for i in colours:
-  #   drawCode.drawFrame(i, count, title)
-  #   count += 1
-
-  
-  
-  print "Number of Frames: ", len(frames)
+  print ("Complete.")
 
 #########################################################################################################
 

@@ -16,19 +16,20 @@ def getInterval(movie):
   return duration / getWidth(movie) # Interval to generate frames for ~ 21:6 resolution
 
   
-def genFrames(movie):
+def genFrames(movie, numFrames):
   # print "genFrame"
   vidcap = cv2.VideoCapture(movie)
   image = vidcap.read()[1]
   interval = getInterval(movie)
   frames = []
 
-  for i in range(getWidth(movie)):
+  for i in range(numFrames):
     vidcap.set(cv2.CAP_PROP_POS_MSEC,(i * interval * 1000))
     frames.append(vidcap.read()[1])
     
   return frames
   # print "..."
+
 
 
 
