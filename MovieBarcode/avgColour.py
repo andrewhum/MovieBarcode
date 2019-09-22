@@ -80,16 +80,16 @@ def allColours(numFrames):
                         avgg += (pixel[i, j][1])
                         avgb += (pixel[i, j][2])
                 rgbRow = (avgr / img.size[0], avgg / img.size[0], avgb / img.size[0])  
-                rowCol.append(rgbRow)           
+                rowCol.append(rgbRow)
 
-        return rowCol 
- """
+        return rowCol  """
+
 #########################################################################################################
 
 def colArray(frame):
     colours = []
     for i in range(0, len(frame), 2):
-        avgr, avgg, avgb = 0, 0, 0    
+        avgr, avgg, avgb = 0, 0, 0
         for j in range (0, len(frame[0]), 2):
             avgr += frame[i][j][2]
             avgg += frame[i][j][1]

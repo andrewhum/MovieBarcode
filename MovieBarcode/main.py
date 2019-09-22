@@ -100,17 +100,13 @@ def main():
   print "Drawing Canvas..."
   numFrames = drawCode.drawCanvas(title, movie)
 
-  frames = []
-
-  print numFrames
+  frames, colours = [], []
   
   print "Generating Frames..."
   for i in range (500):
       frames.append(genFrames.genFrame(vidcap, interval, i))
       #drawCode.drawFrame(avgColour.avgRowCol(frame), count, title)
       #if count == 30: break
-    
-  print len(frames)
 
   print "Calculating Colours..."
   #p = multiprocessing.Pool(multiprocessing.cpu_count()) 
