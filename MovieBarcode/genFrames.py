@@ -4,21 +4,31 @@ import os
 
 from PIL import Image
 
-def calcInterval(Video):
-    duration = Video.get(cv2.CAP_PROP_FRAME_COUNT) / Video.get(cv2.CAP_PROP_FPS)
-    ratio = len(Video.read()[1]) * 21 / 12000 #Width * 21 / 6 / 2 / 1000
-    interval = duration / ratio # Interval to generate frames for ~ 21:6 resolution
-  
-    return interval
+def getHeight (movie):
+  return len(cv2.VideoCapture(movie).read()[1])
+
+def getWidth (movie):
+  return len(cv2.VideoCapture(movie).read()[1][1])
+
+def getInterval(movie):
+  vidcap = cv2.VideoCapture(movie)
+  duration = vidcap.get(cv2.CAP_PROP_FRAME_COUNT) / vidcap.get(cv2.CAP_PROP_FPS)
+  return duration / getWidth(movie) # Interval to generate frames for ~ 21:6 resolution
 
   
-def genFrame(Video, interval, count):
+def genFrames(movie):
   # print "genFrame"
-  Video.set(cv2.CAP_PROP_POS_MSEC,(count * interval))
-  eov, image = Video.read()
-  # print "..."
-  return image
+  vidcap = cv2.VideoCapture(movie)
+  image = vidcap.read()[1]
+  interval = getInterval(movie)
+  frames = []
 
+  for i in range(getWidth(movie)):
+    vidcap.set(cv2.CAP_PROP_POS_MSEC,(i * interval * 1000))
+    frames.append(vidcap.read()[1])
+    
+  return frames
+  # print "..."
 
 
 

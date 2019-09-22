@@ -1,9 +1,13 @@
 from PIL import Image
 import sys
 
+import genFrames
+
+width = 10
+
 def colArray(frame):
     colours = []
-    for i in range(0, len(frame), 2):
+    for i in range(0, global width, 2):
         avgr, avgg, avgb = 0, 0, 0
         for j in range (0, len(frame[0]), 2):
             avgr += frame[i][j][2]

@@ -1,4 +1,4 @@
-import os
+import os.path
 import cv2
 import sys
 from PIL import Image, ImageDraw
@@ -11,25 +11,29 @@ import avgColour
 import drawCode
 
 def main():
-  movie = "Files/testVid.mp4"
-  title = movie.split("/")[1].split(".")[0]
-  print title
 
+  while True:
+    title = raw_input("Movie Title: ")
+    movType = raw_input("File Type: ")
+    movie = ("Files/%s.%s" % (title, movType))
+    if (os.path.exists(movie)): break
+    print ("Error 404: File Not Found.")
+
+  width = genFrames.getWidth(movie)
+  height = genFrames.getHeight(movie)
+  interval = genFrames.calcInterval(movie)
+
+  print ("Movie: ", title)
+  print ("Frame Height: ", height)
+  print ("Frame Width: ", width)
   #genFrames
-  print "Calculating Interval..."
-  vidcap = cv2.VideoCapture(movie)
-  interval = genFrames.calcInterval(vidcap)
 
-  print "Drawing Canvas..."
+  print ("Generating Frames...")
+  frames = []
+  frames = genFrames.genFrames(movie) #runtime ~4 minutes
+
+  print ("Drawing Canvas...")
   numFrames = drawCode.drawCanvas(title, movie)
-
-  frames, colours = [], []
-  
-  print "Generating Frames..."
-  for i in range (500):
-      frames.append(genFrames.genFrame(vidcap, interval, i))
-      #drawCode.drawFrame(avgColour.avgRowCol(frame), count, title)
-      #if count == 30: break
 
   print "Calculating Colours..."
   #p = multiprocessing.Pool(multiprocessing.cpu_count()) 
