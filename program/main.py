@@ -21,6 +21,7 @@ def main():
   width = genFrames.getWidth(movie)
   height = genFrames.getHeight(movie)
   interval = genFrames.getInterval(movie)
+  newWidth = genFrames.adjustWidth(movie)
 
   print ("================================")
   time.sleep(0.5)
@@ -29,16 +30,16 @@ def main():
   sys.stdout.write ("Frame Dimensions: %d x " % width)
   sys.stdout.write("%d \n" % height)
   time.sleep(0.5)
-  print ("================================")
-  
-  sys.stdout.write("Generating Frames... ")
+  sys.stdout.write ("Barcode Dimensions: %d x " % newWidth)
+  sys.stdout.write("%d \n" % (height / 2))
+  sys.stdout.write("================================\nGenerating Frames... ")
 
   frames = []
-  frames = genFrames.genFrames(movie, width) #runtime ~4 minutes
+  frames = genFrames.genFrames(movie, newWidth) #runtime ~2 minutes
   sys.stdout.write("Done. \n")
 
   sys.stdout.write("Creating Canvas... ")
-  drawCode.drawCanvas(movie, width, height)
+  drawCode.drawCanvas(movie, newWidth, height)
   sys.stdout.write("Done. \n")
 
   sys.stdout.write("Calculating Colours... ")

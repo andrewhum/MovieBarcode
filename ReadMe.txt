@@ -12,6 +12,8 @@ multiprocessing & multithreading and more.
 
 As one of my first invidual projects I have definitely learned a lot and am excited to do more.
 
+Example Outputs: https://imgur.com/a/yp6UQM9
+
 ==================================================
 Libraries used:
 

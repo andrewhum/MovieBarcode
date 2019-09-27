@@ -10,10 +10,13 @@ def getHeight (movie):
 def getWidth (movie):
   return len(cv2.VideoCapture(movie).read()[1][1])
 
+def adjustWidth(movie):
+  return (getHeight(movie) / 2) / 6 * 21
+
 def getInterval(movie):
   vidcap = cv2.VideoCapture(movie)
   duration = vidcap.get(cv2.CAP_PROP_FRAME_COUNT) / vidcap.get(cv2.CAP_PROP_FPS)
-  return duration / getWidth(movie) # Interval to generate frames for ~ 21:6 resolution
+  return duration / adjustWidth(movie) # Interval to generate frames for ~ 21:6 resolution
 
   
 def genFrames(movie, numFrames):
