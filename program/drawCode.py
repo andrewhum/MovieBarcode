@@ -1,6 +1,8 @@
 import cv2
+import sys
 from PIL import Image, ImageDraw
 from random import *
+
 
 def drawCanvas(movie, w, h):
     frame = cv2.VideoCapture(movie).read()[1]

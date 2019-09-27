@@ -26,13 +26,13 @@ def main():
   time.sleep(0.5)
   print ("Movie: %s" % title)
   time.sleep(0.5)
-  print ("Frame Width: %d" % width)
-  time.sleep(0.5)
-  print ("Frame Height: %d" % height)
+  sys.stdout.write ("Frame Dimensions: %d x " % width)
+  sys.stdout.write("%d \n" % height)
   time.sleep(0.5)
   print ("================================")
   
   sys.stdout.write("Generating Frames... ")
+
   frames = []
   frames = genFrames.genFrames(movie, width) #runtime ~4 minutes
   sys.stdout.write("Done. \n")
@@ -47,6 +47,7 @@ def main():
   p.close() 
   p.join()
   print len(colours)
+  print len(colours[0])
   sys.stdout.write("Done. \n")
 
   sys.stdout.write("Drawing Barcode... ")
